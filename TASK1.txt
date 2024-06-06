@@ -1,0 +1,82 @@
+//Task1 : NUMBER GAME
+//1. Generate a random number within a specified range, such as 1 to 100.
+//2. Prompt the user to enter their guess for the generated number.
+//3. Compare the user's guess with the generated number and provide feedback on whether the guesses are correct, too high, or too low.
+//4. Repeat steps 2 and 3 until the user guesses the correct number.
+//You can incorporate additional details as follows:
+//5. Limit the number of attempts the user has to guess the number.
+//6. Add the option for multiple rounds, allowing the user to play again.
+//7. Display the user's score, which can be based on the number of attempts taken or rounds won.
+
+INPUT:
+
+package CodSoft;
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class TASK1 {
+    public static void main(String[] args) {
+        Scanner read = new Scanner(System.in);
+        Random random = new Random();
+        int score = 0;
+        boolean play = true;
+
+        System.out.println("WELCOME TO THE NUMBER GAME !");
+
+        while (play) {
+            int numberToGuess = random.nextInt(100) + 1;
+            int numberOfAttempts = 0;
+            boolean hasGuessedCorrectly = false;
+
+            System.out.println("A new number has been generated between 1 and 100." + "\n" + "Try to guess it!");
+            System.out.println("You have a maximum of 10 attempts...");
+
+            while (numberOfAttempts < 10 && !hasGuessedCorrectly) {
+                System.out.print("Enter your guess : ");
+                int userGuess = read.nextInt();
+                numberOfAttempts++;
+                if (userGuess == numberToGuess) {
+                    hasGuessedCorrectly = true;
+                    System.out.println("Congratulations!!! You guessed the correct number in " + numberOfAttempts + " attempts.");
+                    score++;
+                } else if (userGuess < numberToGuess) {
+                    System.out.println("Your guess is too low.");
+                } else {
+                    System.out.println("Your guess is too high.");
+                }
+
+                if (numberOfAttempts == 10 && !hasGuessedCorrectly) {
+                    System.out.println("You've used all 10 attempts. The correct number was " + numberToGuess + ".");
+                }
+            }
+            System.out.print("Would you like to play again? (YES/N0): ");
+            String userResponse = read.next();
+            play = userResponse.equalsIgnoreCase("YES");
+
+            if (!play) {
+                System.out.println("Thank you for playing!" + "\n" + "Your final score is: " + score);
+            }
+        }
+    }
+}
+
+OUTPUT:
+
+WELCOME TO THE NUMBER GAME !
+A new number has been generated between 1 and 100.
+Try to guess it!
+You have a maximum of 10 attempts...
+Enter your guess : 50
+Your guess is too low.
+Enter your guess : 80
+Your guess is too low.
+Enter your guess : 90
+Your guess is too high.
+Enter your guess : 85
+Congratulations!!! You guessed the correct number in 4 attempts.
+Would you like to play again? (YES/N0): no
+Thank you for playing!
+Your final score is: 1
+
+

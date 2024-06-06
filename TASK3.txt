@@ -1,0 +1,160 @@
+//Task3 : ATM INTERFACE
+//1. Create a class to represent the ATM (Machine).
+//2. Design the user interface for the ATM, including options such as withdrawing, depositing, and
+//checking the balance.
+//3. Implement methods for each option, such as withdraw(amount), deposit(amount), and
+//checkBalance().
+//4. Create a class to represent the user's bank account, which stores the account balance.
+//5. Connect the ATM class with the user's bank account class to access and modify the account
+//balance.
+//6. Validate user input to ensure it is within acceptable limits (e.g., sufficient balance for withdrawals).
+//7. Display appropriate messages to the user based on their chosen options and the success or failure
+//of their transactions.
+
+INPUT:
+
+package CodSoft;
+
+import java.util.Scanner;
+
+class BankAccount {
+    private double balance;
+
+    public BankAccount(double initialBalance) {
+        this.balance = initialBalance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposit successful!" + "\n" + "Your new balance is : " + balance + " Rs.");
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawal successful!" + "\n" + "Your new balance is : " + balance + " Rs.");
+        } else if (amount > balance) {
+            System.out.println("Insufficient funds for this withdrawal.");
+        } else {
+            System.out.println("Invalid withdrawal amount.");
+        }
+    }
+}
+
+class ATM {
+    private BankAccount account;
+
+    public ATM(BankAccount account) {
+        this.account = account;
+    }
+
+    public void withdraw(double amount) {
+        account.withdraw(amount);
+    }
+
+    public void deposit(double amount) {
+        account.deposit(amount);
+    }
+
+    public void checkBalance() {
+        System.out.println("Your current balance is : " + account.getBalance() + " Rs.");
+    }
+
+    public void displayMenu() {
+        System.out.println("ATM Menu :- ");
+        System.out.println("1. Withdraw");
+        System.out.println("2. Deposit");
+        System.out.println("3. Check Balance");
+        System.out.println("4. Exit");
+    }
+}
+
+public class TASK3 {
+    public static void main(String[] args) {
+        Scanner read = new Scanner(System.in);
+
+        System.out.println("Welcome to our ATM machine!" + "\n");
+
+        BankAccount account = new BankAccount(1000.0);
+        ATM atm = new ATM(account);
+
+        while (true) {
+            atm.displayMenu();
+            System.out.print("\n" + "Please select an option (1/2/3/4) : ");
+            int choice = read.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the amount to withdraw : ");
+                    double withdrawAmount = read.nextDouble();
+                    atm.withdraw(withdrawAmount);
+                    break;
+                case 2:
+                    System.out.print("Enter the amount to deposit : ");
+                    double depositAmount = read.nextDouble();
+                    atm.deposit(depositAmount);
+                    break;
+                case 3:
+                    atm.checkBalance();
+                    break;
+                case 4:
+                    System.out.println("Thank you for using our ATM machine.");
+                    read.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice." + "\n" + "Please try again.");
+            }
+        }
+    }
+}
+
+OUTPUT:
+
+Welcome to our ATM machine!
+
+ATM Menu :- 
+1. Withdraw
+2. Deposit
+3. Check Balance
+4. Exit
+
+Please select an option (1/2/3/4) : 3
+Your current balance is : 1000.0 Rs.
+ATM Menu :- 
+1. Withdraw
+2. Deposit
+3. Check Balance
+4. Exit
+
+Please select an option (1/2/3/4) : 2
+Enter the amount to deposit : 50000
+Deposit successful!
+Your new balance is : 51000.0 Rs.
+ATM Menu :- 
+1. Withdraw
+2. Deposit
+3. Check Balance
+4. Exit
+
+Please select an option (1/2/3/4) : 1
+Enter the amount to withdraw : 4000
+Withdrawal successful!
+Your new balance is : 47000.0 Rs.
+ATM Menu :- 
+1. Withdraw
+2. Deposit
+3. Check Balance
+4. Exit
+
+Please select an option (1/2/3/4) : 4
+Thank you for using our ATM machine.
+
+
